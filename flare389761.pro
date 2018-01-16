@@ -88,7 +88,7 @@ print, 'Breaking point is',break_point,' seconds'
 ; AND THE EMPIRICAL TREND (TREND_EMD) AS THE LAST (LONGEST-PERIOD) EMPIRICAL MODE (OR A COMBINATION OF A FEW EMPIRICAL MODES,
 ; IDEALLY IDENTICAL TO THE SYNTHETIC ONE).
 
-modes=emd(x_pre-mean(x_pre), shiftfactor=0.02, epsilon=1d-4, maxsiftings=1d5)
+modes=emd(x_pre-mean(x_pre), shiftfactor=0.5, epsilon=1d-4, maxsiftings=1d5)
 modes=[[modes],[reform(trend_emd_pre,n_elements(trend_emd_pre),1)]]
 sz=size(modes)
 
@@ -188,9 +188,9 @@ N_flare=n_elements(x_flare)
 ; SHOULD REMOVE A MEAN VALUE PRIOR TO THE EXPANSION), NUMBER OF DETECTED MODES (SZ).
 
 
-modes=emd(x_flare-mean(x_flare), shiftfactor=0.0033, epsilon=1d-4, maxsiftings=1d5)
+modes=emd(x_flare-mean(x_flare), shiftfactor=0.0001, epsilon=1d-4, maxsiftings=1d5)
 sz=size(modes)
-trend_emd_flare=mean(x_flare)+modes[*,sz[2]-1]        ;FIND TREND FROM LAST MODE IN EMD SPECTRUM
+trend_emd_flare=mean(x_flare)+modes[*,sz[2]-1] ;+ modes[*,sz[2]-2]       ;FIND TREND FROM LAST MODE IN EMD SPECTRUM
 x_flare=x_flare-trend_emd_flare             ;DETREND SIGNAL
 
 p = [2.D, -1.D, 0.1D, 0.D]          ;INITIAL GUESSES OF MODEL PARAMETERS
@@ -325,9 +325,9 @@ N_post=n_elements(x_post)
 ; SHOULD REMOVE A MEAN VALUE PRIOR TO THE EXPANSION), NUMBER OF DETECTED MODES (SZ).
 
 
-modes=emd(x_post-mean(x_post), shiftfactor=0.003, epsilon=1d-4, maxsiftings=1d5)
+modes=emd(x_post-mean(x_post), shiftfactor=0.009, epsilon=1d-4, maxsiftings=1d5)
 sz=size(modes)
-trend_emd_post=mean(x_post)+modes[*,sz[2]-1] +modes[*, sz[2]-2]       ;FIND TREND FROM LAST MODE IN EMD SPECTRUM
+trend_emd_post=mean(x_post) +modes[*, sz[2]-2]  +modes[*, sz[2]-1]      ;FIND TREND FROM LAST MODE IN EMD SPECTRUM
 x_post=x_post-trend_emd_post             ;DETREND SIGNAL
 
 p = [2.D, -1.D, 0.1D, 0.D]          ;INITIAL GUESSES OF MODEL PARAMETERS
