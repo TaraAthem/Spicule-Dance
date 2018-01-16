@@ -455,6 +455,9 @@ oplot, EXP(-freq_pre), pow_fit_pre, linestyle=2, thick=3
 oplot, EXP(-freq_pre), pow_fit95_pre, color=150, thick=2
 oplot, EXP(-freq_pre), pow_fit99_pre, color=250, thick=2
 
+MAXFOURIERPRE=Max(pow_pre,I_pre)
+Print, 'The max preflare Fourier value corresponds to a period of', exp(-freq_pre[I_pre])
+
 
 plot,[0],[0],charsize=ch,/xlog,xrange=[2d*cad,2d*N_pre*cad],$ ;EMD SPECTRUM FOR ALPHA_0,1, VIA CREATION OF A BLANK SPECTRUM
   yrange=[min(alog(energy_pre))-2d*abs(min(alog(energy_pre))),max(alog(energy_pre))+0.1*abs(max(alog(energy_pre)))],xsty=1,ysty=1,title=$
@@ -493,6 +496,9 @@ oplot, EXP(-freq_flare), pow_fit_flare, linestyle=2, thick=3
 oplot, EXP(-freq_flare), pow_fit95_flare, color=150, thick=2
 oplot, EXP(-freq_flare), pow_fit99_flare, color=250, thick=2
 
+MAXFOURIERFLARE=Max(pow_flare,I_flare)
+Print, 'The max flare Fourier value corresponds to a period of',exp(-freq_flare[I_flare])
+
 
 plot,[0],[0],charsize=ch,/xlog,xrange=[2d*cad,2d*N_flare*cad],$ ;EMD SPECTRUM FOR ALPHA_0,1, VIA CREATION OF A BLANK SPECTRUM
   yrange=[min(alog(energy_flare))-2d*abs(min(alog(energy_flare))),max(alog(energy_flare))+0.1*abs(max(alog(energy_flare)))],xsty=1,ysty=1,title=$
@@ -529,6 +535,9 @@ plot,EXP(-freq_post), pow_post,title='Fourier Spectrum - Postflare', xtitle=$   
 oplot, EXP(-freq_post), pow_fit_post, linestyle=2, thick=3
 oplot, EXP(-freq_post), pow_fit95_post, color=150, thick=2
 oplot, EXP(-freq_post), pow_fit99_post, color=250, thick=2
+
+MAXFOURIERPOST=Max(pow_post,I_post)
+Print, 'The max postflare Fourier value corresponds to a period of', exp(-freq_post[I_post])
 
 
 plot,[0],[0],charsize=ch,/xlog,xrange=[2d*cad,2d*N_post*cad],$ ;EMD SPECTRUM FOR ALPHA_0,1, VIA CREATION OF A BLANK SPECTRUM
