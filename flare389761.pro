@@ -9,6 +9,9 @@ pro linfun, x, a, f
   return
 end
 
+
+
+;CD, '/Users/dmitriikolotkov/Dropbox/Tishtrya/flare513372'
 ;CD, 'home/space/phrsnz/Desktop/Academic/Programs/HAIR_AND_HALL'
  
 A = FindGen(16) * (!PI*2/16.) & UserSym, cos(A), sin(A), /fill
@@ -88,7 +91,7 @@ print, 'Breaking point is',break_point,' seconds'
 ; AND THE EMPIRICAL TREND (TREND_EMD) AS THE LAST (LONGEST-PERIOD) EMPIRICAL MODE (OR A COMBINATION OF A FEW EMPIRICAL MODES,
 ; IDEALLY IDENTICAL TO THE SYNTHETIC ONE).
 
-modes=emd(x_pre-mean(x_pre), shiftfactor=0.5, epsilon=1d-4, maxsiftings=1d5)
+modes=emd(x_pre-mean(x_pre), shiftfactor=0.12, epsilon=1d-4, maxsiftings=1d5)
 modes=[[modes],[reform(trend_emd_pre,n_elements(trend_emd_pre),1)]]
 sz=size(modes)
 
@@ -226,7 +229,7 @@ print, 'Breaking point is',break_point,' seconds'
 ; AND THE EMPIRICAL TREND (TREND_EMD) AS THE LAST (LONGEST-PERIOD) EMPIRICAL MODE (OR A COMBINATION OF A FEW EMPIRICAL MODES,
 ; IDEALLY IDENTICAL TO THE SYNTHETIC ONE).
 
-modes=emd(x_flare-mean(x_flare), shiftfactor=0.3, epsilon=1d-4, maxsiftings=1d5)
+modes=emd(x_flare-mean(x_flare), shiftfactor=0.0045, epsilon=1d-4, maxsiftings=1d5)
 modes=[[modes],[reform(trend_emd_flare,n_elements(trend_emd_flare),1)]]
 sz=size(modes)
 
@@ -251,7 +254,7 @@ nmode = nmodep[1:*]
 
 print, 'The periods of the extracted IMFs:',period_flare
 
-emd_mode_flare=modes[*,2]
+emd_mode_flare=modes[*,0]
 
 
 pow_fit95_flare=pow_fit_flare + ALOG(FFT95)
@@ -325,9 +328,9 @@ N_post=n_elements(x_post)
 ; SHOULD REMOVE A MEAN VALUE PRIOR TO THE EXPANSION), NUMBER OF DETECTED MODES (SZ).
 
 
-modes=emd(x_post-mean(x_post), shiftfactor=0.009, epsilon=1d-4, maxsiftings=1d5)
+modes=emd(x_post-mean(x_post), shiftfactor=0.08, epsilon=1d-4, maxsiftings=1d5)
 sz=size(modes)
-trend_emd_post=mean(x_post) +modes[*, sz[2]-2]  +modes[*, sz[2]-1]      ;FIND TREND FROM LAST MODE IN EMD SPECTRUM
+trend_emd_post=mean(x_post)   +modes[*, sz[2]-1]      ;FIND TREND FROM LAST MODE IN EMD SPECTRUM
 x_post=x_post-trend_emd_post             ;DETREND SIGNAL
 
 p = [2.D, -1.D, 0.1D, 0.D]          ;INITIAL GUESSES OF MODEL PARAMETERS
@@ -597,7 +600,7 @@ oplot,tim_post, x_post+trend_emd_post + 1.,thick=3
 oplot,tim_post,trend_emd_post + 1. ,color=50,thick=4
 
 oplot,tim_post,x_post
-;oplot,tim_post,emd_mode_post,color=150,thick=4
+oplot,tim_post,emd_mode_post,color=150,thick=4
 
 oplot,tim_post,x_post -5. ;-emd_mode_post -5. 
 
