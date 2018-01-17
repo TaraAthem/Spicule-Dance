@@ -91,7 +91,7 @@ print, 'Breaking point is',break_point,' seconds'
 ; AND THE EMPIRICAL TREND (TREND_EMD) AS THE LAST (LONGEST-PERIOD) EMPIRICAL MODE (OR A COMBINATION OF A FEW EMPIRICAL MODES,
 ; IDEALLY IDENTICAL TO THE SYNTHETIC ONE).
 
-modes=emd(x_pre-mean(x_pre), shiftfactor=0.12, epsilon=1d-4, maxsiftings=1d5)
+modes=emd(x_pre-mean(x_pre), shiftfactor=0.08, epsilon=1d-4, maxsiftings=1d5)
 modes=[[modes],[reform(trend_emd_pre,n_elements(trend_emd_pre),1)]]
 sz=size(modes)
 
@@ -229,7 +229,7 @@ print, 'Breaking point is',break_point,' seconds'
 ; AND THE EMPIRICAL TREND (TREND_EMD) AS THE LAST (LONGEST-PERIOD) EMPIRICAL MODE (OR A COMBINATION OF A FEW EMPIRICAL MODES,
 ; IDEALLY IDENTICAL TO THE SYNTHETIC ONE).
 
-modes=emd(x_flare-mean(x_flare), shiftfactor=0.0045, epsilon=1d-4, maxsiftings=1d5)
+modes=emd(x_flare-mean(x_flare), shiftfactor=0.006, epsilon=1d-4, maxsiftings=1d5)
 modes=[[modes],[reform(trend_emd_flare,n_elements(trend_emd_flare),1)]]
 sz=size(modes)
 
@@ -452,7 +452,7 @@ A = FindGen(16) * (!PI*2/16.) & UserSym, cos(A), sin(A), /fill
 device, decomposed=0 & loadct,39
 
 plot,EXP(-freq_pre), pow_pre,title='Fourier Spectrum - Preflare', xtitle=$   ;FOURIER POWER SPECTRUM
-  'Period [s]', ytitle='Log Fourier power [a.u.]', /xstyle, $
+  'Period [s]', ytitle='Log Fourier power [a.u.]', /xstyle, yrange=[-6.,3.],$
   /ystyle, charsize=ch, /xlog, xrange=[2,100], thick=2
 oplot, EXP(-freq_pre), pow_fit_pre, linestyle=2, thick=3
 oplot, EXP(-freq_pre), pow_fit95_pre, color=150, thick=2
@@ -494,7 +494,7 @@ oplot, period_pre, alog(energy_pre), psym=8, color=50, symsize=1.1, thick=2  ;PL
 
 plot,EXP(-freq_flare), pow_flare,title='Fourier Spectrum - Flare', xtitle=$   ;FOURIER POWER SPECTRUM
   'Period [s]', ytitle='Log Fourier power [a.u.]', /xstyle, $
-  /ystyle, charsize=ch, /xlog, xrange=[2,100], thick=2
+  /ystyle, charsize=ch, /xlog, xrange=[2,100], thick=2,yrange=[-4.,2.2]
 oplot, EXP(-freq_flare), pow_fit_flare, linestyle=2, thick=3
 oplot, EXP(-freq_flare), pow_fit95_flare, color=150, thick=2
 oplot, EXP(-freq_flare), pow_fit99_flare, color=250, thick=2
@@ -600,7 +600,7 @@ oplot,tim_post, x_post+trend_emd_post + 1.,thick=3
 oplot,tim_post,trend_emd_post + 1. ,color=50,thick=4
 
 oplot,tim_post,x_post
-oplot,tim_post,emd_mode_post,color=150,thick=4
+;oplot,tim_post,emd_mode_post,color=150,thick=4
 
 oplot,tim_post,x_post -5. ;-emd_mode_post -5. 
 
