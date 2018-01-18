@@ -188,9 +188,9 @@ N_flare=n_elements(x_flare)
 ; SHOULD REMOVE A MEAN VALUE PRIOR TO THE EXPANSION), NUMBER OF DETECTED MODES (SZ).
 
 
-modes=emd(x_flare-mean(x_flare), shiftfactor=0.1065, epsilon=1d-4, maxsiftings=1d5)
+modes=emd(x_flare-mean(x_flare), shiftfactor=0.1075, epsilon=1d-4, maxsiftings=1d5)
 sz=size(modes)
-trend_emd_flare=mean(x_flare)+modes[*,sz[2]-1] ;+modes[*,sz[2]-3]  ;+modes[*,sz[2]-4]  ;FIND TREND FROM LAST MODE IN EMD SPECTRUM
+trend_emd_flare=mean(x_flare)+modes[*,sz[2]-1] ;+modes[*,sz[2]-3]  +modes[*,sz[2]-4]  ;FIND TREND FROM LAST MODE IN EMD SPECTRUM
 x_flare=x_flare-trend_emd_flare             ;DETREND SIGNAL
 
 p = [2.D, -1.D, 0.1D, 0.D]          ;INITIAL GUESSES OF MODEL PARAMETERS
